@@ -11,10 +11,11 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Adding packages
+# Adding packages and theme
 ```{r, include=F}
 library(dplyr)
 library(ggplot2)
+source("http://bit.ly/theme_pub")
 ```
 
 
@@ -35,11 +36,11 @@ read.csv("measurements.csv")
 
 ```{r}
 Orgnsm=arrange(MyData, Organism)
-Orgnsm
+print(Orgnsm)
 Obs=arrange(MyData, Observer)
-Obs
+print(Obs)
 Vol=arrange(MyData, Volume)
-Vol
+print(Vol)
 ```
 
 Creating Subsets for each species type
@@ -51,6 +52,7 @@ Tigris=subset(MyData, Organism=="Panthera tigris")
 Concolor= subset(MyData, Organism=="Puma concolor")
 ```
 
+Calculating average volume for each species and creating an average volume data frame
 ```{r}
 Average_Volume=c(mean(Silvestris$Volume), mean(Leo$Volume), 
                  mean(Pardus$Volume), mean(Tigris$Volume), mean(Concolor$Volume))
@@ -60,10 +62,32 @@ Species=c("Felis silvestris", "Panthera leo",
 
 
 AvgVol=data.frame(Species,Average_Volume)
-AvgVol
+print(AvgVol)
 
 
 Observations= MyData %>% 
   group_by(Organism, Observer) %>% count(Organism)
-Observations
+print(Observations)
 ```
+
+Creating volume distribution boxplot
+```{r}
+Figure1=ggplot(MyData, aes(x=Organism, y=Volume, color=Organism)) + 
+  labs(x="Species", y="Limb Volume", 
+       caption="Figure 1: Limb volume distribution by species. The red data represents the species Felis silvestris.  The \nyellow data represents the species Panthera leo.  The green data represents the species Panthera pardus.  \nThe blue data represents the species Panthera tigris.  The purple data represents the species Puma concolor.") +
+  geom_boxplot() + theme_pub()+
+  theme(plot.caption= element_text(hjust=0))
+print(Figure1)
+```
+
+pivot wide!!
+```{r}
+Hist=ggplot(MyData, aes(x=Volume, fill=Organism)) +
+  geom_histogram(bins=8)+
+  facet_grid(cols=vars(Organism))+
+  labs(x="Limb Volume",y="Count",
+       caption="Figure 2: Limb volume frequency histigram by secies.  The red data represents the species Felis silvestris.  The \nyellow data represents the species Panthera leo.  The green data represents the species Panthera pardus.  The \nblue data represents the species Panthera tigris.  The purple data represents the species Puma concolor.")+
+  theme(plot.caption= element_text(hjust=0))
+print(Hist)
+```
+
