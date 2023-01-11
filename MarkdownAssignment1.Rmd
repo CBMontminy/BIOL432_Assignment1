@@ -33,7 +33,7 @@ Loading measurement data
 ```{r}
 read.csv("measurements.csv")
 ```
-$ Arranging data by organism, observer, and volume
+# Arranging data by organism, observer, and volume
 ```{r}
 Orgnsm=arrange(MyData, Organism)
 print(Orgnsm)
