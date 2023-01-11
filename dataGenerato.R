@@ -15,3 +15,7 @@ MyData=data.frame(Organism, Limb_Width, Limb_Length, Observer)
 
 # Checking data frame
 MyData
+
+# Writing data as a .csv
+
+write.csv(MyData, "measurements.csv")
