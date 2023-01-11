@@ -80,7 +80,7 @@ Figure1=ggplot(MyData, aes(x=Organism, y=Volume, color=Organism)) +
 print(Figure1)
 ```
 
-pivot wide!!
+Creating frequency histogram
 ```{r}
 Hist=ggplot(MyData, aes(x=Volume, fill=Organism)) +
   geom_histogram(bins=8)+
