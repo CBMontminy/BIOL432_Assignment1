@@ -19,12 +19,12 @@ source("http://bit.ly/theme_pub")
 ```
 
 
-# Script that generates original data
+# Running script that generates original data
 ```{r, include=F}
 source("dataGenerato.R")
 ```
 
-# Script that adds volume data and rewrites csv.
+# Running script that adds volume data and rewrites csv.
 ```{r, include=F}
 source("volumeEstimato.R")
 ```
@@ -33,7 +33,7 @@ Loading measurement data
 ```{r}
 read.csv("measurements.csv")
 ```
-
+$ Arranging data by organism, observer, and volume
 ```{r}
 Orgnsm=arrange(MyData, Organism)
 print(Orgnsm)
@@ -43,7 +43,7 @@ Vol=arrange(MyData, Volume)
 print(Vol)
 ```
 
-Creating Subsets for each species type
+# Creating Subsets for each species type
 ```{r}
 Silvestris=subset(MyData, Organism=="Felis silvestris")
 Leo=subset(MyData, Organism=="Panthera leo")
@@ -52,7 +52,7 @@ Tigris=subset(MyData, Organism=="Panthera tigris")
 Concolor= subset(MyData, Organism=="Puma concolor")
 ```
 
-Calculating average volume for each species and creating an average volume data frame
+# Calculating average volume for each species and creating an average volume data frame
 ```{r}
 Average_Volume=c(mean(Silvestris$Volume), mean(Leo$Volume), 
                  mean(Pardus$Volume), mean(Tigris$Volume), mean(Concolor$Volume))
@@ -70,7 +70,7 @@ Observations= MyData %>%
 print(Observations)
 ```
 
-Creating volume distribution boxplot
+# Creating volume distribution boxplot
 ```{r}
 Figure1=ggplot(MyData, aes(x=Organism, y=Volume, color=Organism)) + 
   labs(x="Species", y="Limb Volume", 
@@ -80,7 +80,7 @@ Figure1=ggplot(MyData, aes(x=Organism, y=Volume, color=Organism)) +
 print(Figure1)
 ```
 
-Creating frequency histogram
+# Creating frequency histogram
 ```{r}
 Hist=ggplot(MyData, aes(x=Volume, fill=Organism)) +
   geom_histogram(bins=8)+
