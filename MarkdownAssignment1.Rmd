@@ -1,0 +1,69 @@
+---
+title: "432 Assignment 1"
+author: "Corbin"
+date: "2023-01-11"
+output: html_document
+---
+
+[My GitHub](https://github.com/CBMontminy/BIOL432_Assignment1)
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Adding packages
+```{r, include=F}
+library(dplyr)
+library(ggplot2)
+```
+
+
+# Script that generates original data
+```{r, include=F}
+source("dataGenerato.R")
+```
+
+# Script that adds volume data and rewrites csv.
+```{r, include=F}
+source("volumeEstimato.R")
+```
+
+Loading measurement data
+```{r}
+read.csv("measurements.csv")
+```
+
+```{r}
+Orgnsm=arrange(MyData, Organism)
+Orgnsm
+Obs=arrange(MyData, Observer)
+Obs
+Vol=arrange(MyData, Volume)
+Vol
+```
+
+Creating Subsets for each species type
+```{r}
+Silvestris=subset(MyData, Organism=="Felis silvestris")
+Leo=subset(MyData, Organism=="Panthera leo")
+Pardus=subset(MyData, Organism=="Panthera pardus")
+Tigris=subset(MyData, Organism=="Panthera tigris")
+Concolor= subset(MyData, Organism=="Puma concolor")
+```
+
+```{r}
+Average_Volume=c(mean(Silvestris$Volume), mean(Leo$Volume), 
+                 mean(Pardus$Volume), mean(Tigris$Volume), mean(Concolor$Volume))
+
+Species=c("Felis silvestris", "Panthera leo", 
+          "Panthera pardus", "Panthera tigris", "Puma concolor")
+
+
+AvgVol=data.frame(Species,Average_Volume)
+AvgVol
+
+
+Observations= MyData %>% 
+  group_by(Organism, Observer) %>% count(Organism)
+Observations
+```
