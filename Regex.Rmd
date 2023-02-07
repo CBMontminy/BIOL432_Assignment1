@@ -41,7 +41,12 @@ unique(MData$Sp)
 ```
 # Creating a new dataframe with the new shortned species names
 ```{r}
-SpDat=data.frame(X=MData$X, Sp=MData$Sp, Limb_Width=MData$Limb_Width, Limb_Length=MData$Limb_Length, Observer=MData$Observer, Volume=MData$Volume)
+SpDat=data.frame(X=MData$X, 
+                 Sp=MData$Sp, 
+                 Limb_Width=MData$Limb_Width,
+                 Limb_Length=MData$Limb_Length,
+                 Observer=MData$Observer, 
+                 Volume=MData$Volume)
 ```
 
 # Checking new dataframe
