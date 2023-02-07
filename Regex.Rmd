@@ -1,0 +1,57 @@
+---
+title: "Regex"
+author: "Corbin Montminy"
+date: "2023-02-06"
+output: pdf_document
+---
+
+[My GitHub](https://github.com/CBMontminy)
+
+# Importing data
+```{r}
+MData=read.csv("measurements.csv")
+head(MData)
+str(MData)
+```
+# Attaching packages
+```{r}
+library(dplyr)
+```
+## Checking species names
+```{r}
+unique(MData$Organism)
+```
+# Creating a new column Sp
+
+Creating a new species column to utilize gsub()
+
+```{r}
+MData$Sp=MData$Organism
+```
+
+# Using gsub() to shorten the species names
+```{r}
+MData$Sp=gsub("P.* ", "P. ", MData$Sp)
+MData$Sp=gsub("F.* ", "F. ", MData$Sp)
+```
+
+# Checking new variable
+```{r}
+unique(MData$Sp)
+```
+# Creating a new dataframe with the new shortned species names
+```{r}
+SpDat=data.frame(X=MData$X, Sp=MData$Sp, Limb_Width=MData$Limb_Width, Limb_Length=MData$Limb_Length, Observer=MData$Observer, Volume=MData$Volume)
+```
+
+# Checking new dataframe
+```{r}
+str(SpDat)
+head(SpDat)
+```
+
+# Saving dataframe as MeasShort.csv
+```{r}
+write.csv(SpDat, "MeasShort.csv")
+```
+
